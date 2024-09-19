@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      html body {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        height: 100vh;
+        background: rgb(246, 246, 246);
+      }
+      .img {
+        width: 100%;
+      }
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 0.6rem;
+      }
+      .text {
+        color: rgb(101, 46, 45);
+        font-size: 16px;
+      }
+      .time {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <img
+        class="img"
+        src="https://static.chuanyinet.com/files/fem18vqq4dmivk07/1.jpg"
+      />
+      <div class="flex">
+        <div class="text">截图无效</div>
+        <div class="time"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    (function (g, h) {
+      var docEl = g.documentElement;
+      var resizeEvt =
+        'orientationchange' in window ? 'orientationchange' : 'resize';
+      function recalc() {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) {
+          return;
+        }
+        if (clientWidth > 720) {
+          clientWidth = 720;
+        }
+        docEl.setAttribute(
+          'style',
+          'font-size:' + clientWidth / 3.6 + 'px!important'
+        );
+        setFontSize();
+      }
+      function setFontSize() {
+        var a = document.getElementsByTagName('html')[0];
+        var b = parseInt(a.style.fontSize);
+        var c = parseInt(a.style.fontSize);
+        var d = 0;
+        while (true) {
+          var e = parseInt(window.getComputedStyle(a).fontSize);
+          var f = e - b;
+          if (Math.abs(f) >= 1) {
+            if (f > 0) {
+              c--;
+            }
+            a.setAttribute('style', 'font-size:' + c + 'px!important');
+          } else {
+            break;
+          }
+          if (d++ > 100) {
+            break;
+          }
+        }
+      }
+      if (!g.addEventListener) {
+        return;
+      }
+      h.addEventListener(resizeEvt, recalc, false);
+      g.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+  </script>
+  <script>
+    var timeDiv = document.querySelector('.time');
+
+    // 更新时间的函数
+    function updateTime() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+
+      // 补零操作
+      hours = ('0' + hours).slice(-2);
+      minutes = ('0' + minutes).slice(-2);
+      seconds = ('0' + seconds).slice(-2);
+
+      // 设置到 DOM 中
+      timeDiv.textContent = hours + ':' + minutes + ':' + seconds;
+    }
+
+    // 每秒调用一次 updateTime 函数
+    setInterval(updateTime, 1000);
+
+    // 立即执行一次，以确保页面加载时立即显示当前时间
+    updateTime();
+  </script>
+</html>
